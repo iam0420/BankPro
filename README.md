@@ -1,184 +1,217 @@
-# BankPro — Enterprise-Grade Banking Backend System
+# BankPro — Modern Microservice-Based Banking System
 
-### Author: **Aniket Kamlesh**
+## 🚀 Overview
 
-### Version: `v1.0.0`
+BankPro is a comprehensive backend banking system designed using a microservice architecture pattern with Spring Boot. This project simulates real-world banking operations such as customer onboarding, account handling, fund management, and dashboard aggregation, built with scalable, secure, and testable service-oriented architecture.
 
----
-
-## 🚀 Project Overview
-
-**BankPro** is a secure, modular, and extensible banking platform backend developed using modern Java and Spring Boot technologies. It provides robust customer registration, authentication, role-based access control, and scalable architecture designed to evolve into a full microservices system.
-
-> **Objective:** Build a professional-grade banking backend that adheres to industry standards followed by large-scale organizations like Google, Microsoft, and enterprise banking platforms.
+The goal is to give developers hands-on experience with microservices, multithreading, concurrency, secure RESTful APIs, and asynchronous service communication.
 
 ---
 
-## 🔄 System Architecture (Current & Future)
+## 📆 Project Phases
 
-### Phase 1: Monolithic Module
+### ✅ Phase 1: Customer Service
+
+* User Registration
+* User Login (JWT Token Generation)
+* Profile Retrieval
+* JWT Integration
+* Swagger Documentation
+
+### ⏳ Phase 2: Account Service
+
+* Create Account
+* Check Balance
+* List User Accounts
+* Account-Customer Mapping
+
+### ⏳ Phase 3: Transaction Service
+
+* Deposit & Withdraw
+* Fund Transfers
+* Transaction History
+
+### ⏳ Phase 4: Dashboard Service
+
+* Asynchronous aggregation using `CompletableFuture`
+* Fetch user, account, and transaction data concurrently
+
+### ⏳ Phase 5: Core Enhancements
+
+* Swagger 3 integration
+* Constants and centralized config layer
+* Global Exception Handling via `@ControllerAdvice`
+
+### ⏳ Phase 6: Multithreading Implementation
+
+* Async transaction logging with `ExecutorService`
+* Balance validation via `Callable` + `Future`
+* Dashboard async service with `CompletableFuture`
+
+### ⏳ Phase 7: Optional Advanced Features
+
+* Spring Cloud Gateway
+* Eureka Service Discovery
+* Dockerize microservices
+* Redis caching or Kafka integration (optional)
+
+---
+
+## 🪧 Architecture Overview
+
+### Microservice Structure
 
 ```
-+--------------------------+
-|     Spring Boot App      |
-|--------------------------|
-| - Customer Module        |
-| - Auth (JWT)             |
-| - Swagger Docs           |
-| - Role Based Access      |
-| - Global Exception       |
-| - MySQL DB Integration   |
-+--------------------------+
+bankpro/
+├── customer-service/
+├── account-service/
+├── transaction-service/
+├── dashboard-service/
+└── common-libs/ (optional shared modules)
 ```
 
-### Phase 2: Microservices (Planned)
+### Standard Directory Structure (per service)
 
 ```
-+--------------+     +-------------------+     +-------------------+
-|  API Gateway | --> |  Customer Service | --> |  MySQL            |
-+--------------+     +-------------------+     +-------------------+
-        |                    |
-        v                    v
-  Auth Service         Transaction Service
-        |                    |
-        v                    v
-    Notification         Reporting Engine
+/src
+  /controller
+  /service
+  /repository
+  /entity
+  /dto
+  /config
+  /exception
+  /util
 ```
 
 ---
 
-## 🌐 Technologies & Tools
+## 🔧 Tech Stack
 
-| Layer           | Technology / Tool               |
-| --------------- | ------------------------------- |
-| Language        | Java 21                         |
-| Framework       | Spring Boot 3.2.5               |
-| API Docs        | Springdoc OpenAPI 2.x + Swagger |
-| Security        | Spring Security, JWT            |
-| Database        | MySQL 8                         |
-| ORM             | Hibernate (JPA)                 |
-| Validation      | Jakarta Validation              |
-| Build Tool      | Maven                           |
-| Dev Tools       | IntelliJ, Docker (planned)      |
-| Logging         | SLF4J, Logback                  |
-| Version Control | GitHub                          |
-
----
-
-## 🚧 Core Modules Implemented
-
-### 1. Customer Module
-
-* Register customer with validation
-* Login customer with encrypted credentials
-* Fetch profile (authenticated)
-* Admin APIs to list all customers
-* Admin API to promote user
-
-### 2. Security Module
-
-* JWT-based stateless authentication
-* Role-based access control (`ROLE_USER`, `ROLE_ADMIN`)
-* Password encryption (BCrypt)
-
-### 3. Documentation
-
-* Swagger UI at `/swagger-ui.html`
-* Fully annotated DTOs and endpoints
-
-### 4. Error Handling
-
-* Centralized exception handling
-* Custom error response model
-* Custom business exceptions with error codes
+| Layer            | Technology                         |
+| ---------------- | ---------------------------------- |
+| Language         | Java 21                            |
+| Framework        | Spring Boot 3.x                    |
+| Build Tool       | Maven                              |
+| ORM              | Spring Data JPA (Hibernate)        |
+| DB               | MySQL                              |
+| Security         | Spring Security, JWT               |
+| API Docs         | Swagger (SpringDoc OpenAPI 3)      |
+| Dev Tools        | Lombok, SLF4J, Logback             |
+| Testing          | JUnit, Mockito                     |
+| Async & Threads  | ExecutorService, CompletableFuture |
+| Optional Tools   | Eureka, Spring Cloud Gateway       |
+| Containerization | Docker (optional)                  |
 
 ---
 
-## 🔍 Sample API Endpoints
+## 🔒 Security
 
-| Method | Endpoint                                  | Description                    | Role       |
-| ------ | ----------------------------------------- | ------------------------------ | ---------- |
-| POST   | `/api/v1/customers/register`              | Register a new user            | Public     |
-| POST   | `/api/v1/customers/login`                 | Login with credentials         | Public     |
-| GET    | `/api/v1/customers/profile`               | Get current user profile       | User/Admin |
-| GET    | `/api/v1/customers/admin/customers`       | Fetch all registered customers | Admin Only |
-| PUT    | `/api/v1/customers/admin/promote/{email}` | Promote user to admin          | Admin Only |
+* Password hashing with BCrypt
+* Stateless authentication using JWT
+* Role-based access control using `@PreAuthorize`
+* Token-based API security
 
 ---
 
-## 📃 API Docs (Swagger)
+## 🔍 API Documentation
 
-* Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
-* OpenAPI Docs: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+* Swagger UI: `http://localhost:8080/swagger-ui.html`
+* OpenAPI Spec: `http://localhost:8080/v3/api-docs`
+
+Each service exposes its own OpenAPI spec.
 
 ---
 
-## 📝 Setup & Run Locally
+## 🎯 Features & Best Practices
+
+* Clean Layered Architecture (Controller -> Service -> Repository)
+* DTO-based request/response handling
+* Strong validation using `javax.validation`
+* Global exception handling using `@ControllerAdvice`
+* Reusable `RequestResponse<T>` wrapper for all APIs
+* Proper use of Java 21 features
+
+---
+
+## 🚪 Authentication & Authorization
+
+* JWT tokens issued on login
+* JWT parsed using filter in security config
+* Token role-based authority check
+* Only authenticated users can access protected routes
+
+---
+
+## 🪤 Concurrency & Performance
+
+* Async operations using Java `CompletableFuture`
+* Transaction logging using `ExecutorService`
+* Balance checking logic using `Callable` + `Future`
+* Parallel service calls in dashboard
+
+---
+
+## 🌐 Getting Started
+
+### 1. Clone the repository
 
 ```bash
-# Clone repository
-git clone https://github.com/iam0420/BankPro.git
-cd BankPro
+git clone https://github.com/<your-username>/bankpro.git
+cd bankpro
+```
 
-# Configure MySQL DB in application.properties or .env
-spring.datasource.url=jdbc:mysql://localhost:3306/bankpro_customer
-spring.datasource.username=root
-spring.datasource.password=your_password
+### 2. Start MySQL
 
-# Run the application
+* Create databases: `bankpro_customer`, `bankpro_account`, etc.
+* Update credentials in `application.properties`
+
+### 3. Run Customer Service
+
+```bash
+cd customer-service
 ./mvnw spring-boot:run
+```
 
-# Swagger Docs
-Visit: http://localhost:8080/swagger-ui.html
+### 4. Open Swagger UI
+
+```
+http://localhost:8080/swagger-ui.html
 ```
 
 ---
 
-## 🌎 Environment Configuration (application.properties)
+## 📒 Branching Strategy
 
-```properties
-spring.application.name=customer-service
-server.port=8080
-spring.profiles.active=dev
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=jdbc:mysql://localhost:3306/bankpro_customer
-```
-
----
-
-## 🌐 Planned Features & Roadmap
-
-| Feature                         | Status    |
-| ------------------------------- | --------- |
-| Customer microservice           | ✅ Done    |
-| Authentication service          | ⏳ Planned |
-| Account & transaction service   | ⏳ Planned |
-| Email/OTP verification          | ⏳ Planned |
-| Dockerization                   | ⏳ Planned |
-| API Gateway                     | ⏳ Planned |
-| Monitoring (Prometheus/Grafana) | ⏳ Planned |
+| Branch Name           | Purpose                                 |
+| --------------------- | --------------------------------------- |
+| `main` / `master`     | Stable production code                  |
+| `dev`                 | Development branch for merging features |
+| `feature/customer`    | Customer microservice development       |
+| `feature/account`     | Account microservice development        |
+| `feature/transaction` | Transaction microservice development    |
+| `feature/dashboard`   | Dashboard async service                 |
+| `infra/docker`        | Docker-related setup                    |
+| `feature/security`    | JWT and Spring Security configs         |
 
 ---
 
-## 📊 Contribution Standards
+## 🙌 Author
 
-* Follow **Clean Code** and SOLID principles
-* Add Javadoc & Swagger annotations to all endpoints
-* Exceptions must extend `BaseException`
-* Use DTOs with Jakarta validation annotations
-* Never expose raw passwords or sensitive tokens
+**Aniket Kamlesh**
+*Designed and built with industry standards, learning goals, and production-grade practices.*
 
 ---
 
-## 👥 Maintainer & Credits
+## 📊 Outcomes
 
-Developed & maintained by **Aniket Kamlesh**
-GitHub: [iam0420](https://github.com/iam0420)
+* Solid grasp on Spring Boot microservice development
+* Hands-on with real-world concurrency in Java
+* Swagger-driven, secure, documented APIs
+* Ready for cloud-native enhancements
 
 ---
 
-## 📖 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+> “BankPro equips developers with enterprise-grade microservice practices, enabling you to build real-time, scalable, and secure banking systems like those in production fintech applications.”
 
 ---
