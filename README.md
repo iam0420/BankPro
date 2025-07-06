@@ -52,7 +52,7 @@
 | Layer           | Technology / Tool               |
 | --------------- | ------------------------------- |
 | Language        | Java 21                         |
-| Framework       | Spring Boot 3.5                 |
+| Framework       | Spring Boot 3.2.5               |
 | API Docs        | Springdoc OpenAPI 2.x + Swagger |
 | Security        | Spring Security, JWT            |
 | Database        | MySQL 8                         |
